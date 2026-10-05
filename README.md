@@ -66,6 +66,8 @@ SwiftUI · SwiftData · WidgetKit · App Intents · UserNotifications · EventKi
 
 앱의 알림 일정 계산 엔진(완료 기준 반복, 다시 알림, 방해 금지 시간, 64개 한도)을 테스트와 함께 공개합니다. 화면·위젯·저장소 코드는 포함하지 않습니다.
 
+**실제 앱이 이 패키지를 그대로 씁니다.** 비공개 앱 저장소는 이 저장소의 `0.1.0` 태그를 Swift Package로 가져와 앱과 위젯 확장에 연결합니다. 공개 코드와 제품 코드가 한 벌입니다.
+
 > [ReminderEngine/](ReminderEngine/) · 테스트 19개 · GitHub Actions로 푸시마다 자동 실행
 
 ## AI와 함께 일한 방식
