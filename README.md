@@ -37,16 +37,30 @@ Check Again은 **체크한 순간부터 다음 주기를 셉니다.** 정수기 
 
 SwiftUI · SwiftData · WidgetKit · App Intents · UserNotifications · EventKit · App Group · Swift Testing
 
-> 자세한 구조: [docs/architecture.md](docs/architecture.md) (작성 예정)
+- **앱 + 위젯 확장 + 공통 코드(Shared)**: 모델, 알림 재예약, 일정 계산처럼 두 프로세스가 똑같이 동작해야 하는 코드를 함께 컴파일한다.
+- **App Group 공유 저장소**: 위젯과 앱이 같은 데이터를 본다. 위젯에서 체크해도 알림 재예약과 캘린더 기록이 같은 규칙으로 이어진다.
+- **저장할 때마다 알림 전체 재계산**: 64개 한도, 방해 금지 시간, 알림 센터 정리를 한곳에서.
+
+> 그림과 흐름: [docs/architecture.md](docs/architecture.md)
 
 ## 설계 결정
 
-> [docs/decisions.md](docs/decisions.md) (작성 예정)
+| 결정 | 이유 |
+|---|---|
+| 다음 알림은 마지막 완료 시각부터 | 이 앱의 존재 이유. 달력 기준 반복의 간격 왜곡을 없앤다 |
+| 다시 알림은 주기의 1/24, 최소 10분, 최대 2번 | "알림이 스트레스가 되면 안 된다" |
+| 캘린더는 쓰기 전용 권한 + 5분 유예 | 기존 일정을 읽지 않는 신뢰 vs 취소 시 지울 수 없음, 그 사이의 절충 |
+| 완료 기록에 제목 복사, 캘린더 연동 자리 선확보 | 나중에 구조 변경 없이 캘린더 연동을 붙였다 |
+| 위젯 체크 여부는 설정이 아닌 위젯 종류로 | 요청한 사용자도 숨은 설정을 찾지 못했다 |
+| 기존 데이터 이전은 이동이 아닌 복사 | 실사용 데이터가 있었다. 문제가 생겨도 되돌릴 수 있게 |
+
+> 전체 15개: [docs/decisions.md](docs/decisions.md)
 
 ## 문제 해결 사례
 
-- [시작 속도: 가설을 버리고 측정으로 찾은 진짜 원인](docs/case-launch-time.md) (작성 예정)
-- [iOS 예약 알림 64개 한도와 스케줄러](docs/case-notification-limit.md) (작성 예정)
+- **[시작 속도: 가설을 버리고 측정으로 찾은 진짜 원인](docs/case-launch-time.md)** — "Debug라서 느리다"는 가설을 실기기 측정(첫 화면 0.1초)으로 기각. 원인은 화면 전환이었고, 덤으로 Release 빌드가 깨져 있던 걸 출시 전에 발견
+- **[iOS 예약 알림 64개 한도와 스케줄러](docs/case-notification-limit.md)** — 모든 할 일의 알림을 합쳐 가장 가까운 64개만 예약, 저장할 때마다 재계산
+- **[같은 원인의 크래시를 세 번: SwiftData 컨테이너 수명](docs/case-swiftdata-lifetime.md)** — 위젯 자리표시 화면 → 기기 크래시 로그 → "경계 밖으로는 값만 내보낸다"는 규칙
 
 ## 공개 코드: ReminderEngine
 
@@ -56,7 +70,9 @@ SwiftUI · SwiftData · WidgetKit · App Intents · UserNotifications · EventKi
 
 ## AI와 함께 일한 방식
 
-> [docs/working-with-ai.md](docs/working-with-ai.md) (작성 예정)
+제품 판단(무엇을 왜 만들지, 좋은 경험의 기준, 언제 멈추고 측정할지)은 내가 하고, 구현·테스트·측정·문서화는 AI 코딩 도구(Claude Code)로 빠르게 했다. AI의 제안을 받아들이지 않은 경우와, AI가 놓친 것을 잡아낸 장치를 정리했다.
+
+> [docs/working-with-ai.md](docs/working-with-ai.md)
 
 ## 다음 계획
 
