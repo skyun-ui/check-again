@@ -4,7 +4,18 @@
 
 > **English summary** — Check Again is an iOS to-do app that counts the next reminder from *when you last did it*, not from a fixed calendar time. Due items surface on the Home and Lock Screen widgets only when it's time, so you can stop keeping them in your head. Built with SwiftUI, SwiftData, WidgetKit and App Intents. This repository is a case study; the app's source is private, and the reminder scheduling engine is published under `ReminderEngine/`.
 
-<!-- 대표 스크린샷: 목록 · 위젯 · 잠금 화면 · 다크 모드 (작성 예정) -->
+<p align="center">
+  <img src="screenshots/all-light.png" width="240" alt="할 일 목록: 한 번과 반복으로 나눠 보기">
+  <img src="screenshots/home-light.png" width="240" alt="목록 모음">
+  <img src="screenshots/all-dark.png" width="240" alt="다크 모드">
+</p>
+<p align="center">
+  <img src="screenshots/onboarding-light.png" width="240" alt="처음 실행 안내">
+  <img src="screenshots/search-light.png" width="240" alt="검색">
+  <img src="screenshots/home-dark.png" width="240" alt="목록 모음 다크 모드">
+</p>
+
+<!-- 위젯 · 잠금 화면 스크린샷 (실기기에서 추가 예정) -->
 
 ---
 
