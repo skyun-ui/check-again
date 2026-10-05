@@ -3,8 +3,13 @@
 Check Again의 **알림 일정 계산 엔진**입니다. 화면·위젯·저장소와 무관한 순수 Swift 로직이라 macOS에서 `swift test`로 바로 검증할 수 있습니다.
 
 ```bash
-cd ReminderEngine
-swift test
+swift test   # 저장소 맨 위에서
+```
+
+다른 프로젝트에서 쓰기 (Swift Package Manager):
+
+```swift
+.package(url: "https://github.com/skyun-ui/check-again", branch: "main")
 ```
 
 ## 구성

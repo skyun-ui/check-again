@@ -2,16 +2,13 @@ name: ReminderEngine tests
 
 on:
   push:
-    paths: ["ReminderEngine/**", ".github/workflows/engine-tests.yml"]
+    paths: ["ReminderEngine/**", "Package.swift", ".github/workflows/engine-tests.yml"]
   pull_request:
-    paths: ["ReminderEngine/**"]
+    paths: ["ReminderEngine/**", "Package.swift"]
 
 jobs:
   test:
     runs-on: macos-15
-    defaults:
-      run:
-        working-directory: ReminderEngine
     steps:
       - uses: actions/checkout@v4
       - name: Swift 버전
